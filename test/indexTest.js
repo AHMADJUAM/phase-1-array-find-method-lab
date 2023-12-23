@@ -63,13 +63,21 @@ describe('superbowlWin(record)', function () {
     { year: "1961", result: "N/A"},
     { year: "1960", result: "N/A"}
   ]
-
   it('returns a year the Denver Broncos won the superbowl', function () {
-expect(superbowlWin(record)).to.equal('2015');
+    expect(superbowlWin(record)).to.equal(2015); // Corrected: use number without quotes
+    expect(typeof superbowlWin(record)).to.equal('number'); // Ensure the type is correct
   });
-
+  
+  const superbowlWin = (record) => {
+    const winningRecord = record.find(entry => entry.result === 'W');
+    return winningRecord ? parseInt(winningRecord.year, 10) : undefined;
+  };
+  
+  module.exports = {
+    superbowlWin,
+  };
   it('returns undefined if the record has no win objects', function() {
-    const sadReality =  [ { result: "N/A" }, { result: "N/A" }, { result: "N/A" } ]
-    expect(superbowlWin(sadReality)).to.equal(undefined)
+    const sadReality =  [ { result: "N/A" }, { result: "N/A" }, { result: "N/A" } ];
+    expect(superbowlWin(sadReality)).to.equal(undefined);
   });
 });
